@@ -82,3 +82,22 @@ pub impl @io.Reader for FormPart with fn _direct_read(
 ) {
   @io.Reader::_direct_read(self.source, buffer, offset~, max_len~)
 }
+
+///|
+/// The `@io.Reader` methods exposed on `FormPart`, so a part can be read
+/// directly as well as through the trait.
+pub extend FormPart with @io.Reader::{
+  read,
+  drop,
+  read_exactly,
+  read_some,
+  read_all,
+  read_until,
+}
+
+///|
+// The trait's internal hooks are only promoted because `FormPart` implements
+// `Reader`; keep them hidden from the generated interface.
+#deprecated("Use `@io.Reader` instead", skip_current_package=true)
+#doc(hidden)
+pub extend FormPart with @io.Reader::{_direct_read, _get_internal_buffer}

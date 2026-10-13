@@ -4,6 +4,11 @@ pub suberror MultipartError {
 } derive(Debug)
 
 ///|
+#deprecated("Use `Debug::to_repr` instead", skip_current_package=true)
+#doc(hidden)
+pub extend MultipartError with @debug.Debug::{to_repr}
+
+///|
 /// A sequential, streaming MIME multipart reader (RFC 2046 section 5.1.1).
 /// The source must be limited to the enclosing message body.
 struct Reader {
